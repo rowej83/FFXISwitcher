@@ -1,0 +1,9 @@
+C:\misc\projects\FFXISwitcher-Final\testhook1\obj\Debug\ResolveAssemblyReference.cache
+C:\misc\projects\FFXISwitcher-Final\testhook1\obj\Debug\FFXISwitcher.MainForm.resources
+C:\misc\projects\FFXISwitcher-Final\testhook1\obj\Debug\GenerateResource.read.1.tlog
+C:\misc\projects\FFXISwitcher-Final\testhook1\obj\Debug\GenerateResource.write.1.tlog
+C:\misc\projects\FFXISwitcher-Final\testhook1\obj\Debug\FFXISwitcher.exe
+C:\misc\projects\FFXISwitcher-Final\testhook1\obj\Debug\FFXISwitcher.pdb
+C:\misc\projects\FFXISwitcher-Final\testhook1\bin\Debug\FFXISwitcher.exe.config
+C:\misc\projects\FFXISwitcher-Final\testhook1\bin\Debug\FFXISwitcher.exe
+C:\misc\projects\FFXISwitcher-Final\testhook1\bin\Debug\FFXISwitcher.pdb
