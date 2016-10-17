@@ -222,7 +222,7 @@ namespace FFXISwitcher
 				textAddExclusion.Clear();
 				textAddExclusion.Focus();
 				convertListToStringAndSave();
-			
+				createIndex();
 			}
 		}
 		/// <summary>
@@ -285,6 +285,7 @@ namespace FFXISwitcher
            ){
     		listExclusions.Items.Remove(listExclusions.SelectedItem);
     	 convertListToStringAndSave();
+    	 createIndex();
     	}
     }
    
