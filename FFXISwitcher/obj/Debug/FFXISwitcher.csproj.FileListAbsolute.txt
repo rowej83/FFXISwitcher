@@ -7,3 +7,13 @@ C:\misc\projects\FFXISwitcher-Final\testhook1\obj\Debug\FFXISwitcher.pdb
 C:\misc\projects\FFXISwitcher-Final\testhook1\bin\Debug\FFXISwitcher.exe.config
 C:\misc\projects\FFXISwitcher-Final\testhook1\bin\Debug\FFXISwitcher.exe
 C:\misc\projects\FFXISwitcher-Final\testhook1\bin\Debug\FFXISwitcher.pdb
+C:\misc\projects\FFXISwitcher-FINALv1\FFXISwitcher\bin\Debug\FFXISwitcher.exe.config
+C:\misc\projects\FFXISwitcher-FINALv1\FFXISwitcher\bin\Debug\FFXISwitcher.exe
+C:\misc\projects\FFXISwitcher-FINALv1\FFXISwitcher\bin\Debug\FFXISwitcher.pdb
+C:\misc\projects\FFXISwitcher-FINALv1\FFXISwitcher\obj\Debug\ResolveAssemblyReference.cache
+C:\misc\projects\FFXISwitcher-FINALv1\FFXISwitcher\obj\Debug\FFXISwitcher.MainForm.resources
+C:\misc\projects\FFXISwitcher-FINALv1\FFXISwitcher\obj\Debug\GenerateResource.read.1.tlog
+C:\misc\projects\FFXISwitcher-FINALv1\FFXISwitcher\obj\Debug\GenerateResource.write.1.tlog
+C:\misc\projects\FFXISwitcher-FINALv1\FFXISwitcher\obj\Debug\FFXISwitcher.exe
+C:\misc\projects\FFXISwitcher-FINALv1\FFXISwitcher\obj\Debug\FFXISwitcher.pdb
+C:\misc\projects\FFXISwitcher-FINALv1\FFXISwitcher\bin\Debug\Properties\Settings.settings

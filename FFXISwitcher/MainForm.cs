@@ -8,13 +8,15 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Drawing;
-using System.Windows.Forms;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
-using System.Diagnostics;
 
 namespace FFXISwitcher
 {
@@ -79,6 +81,7 @@ namespace FFXISwitcher
         {
             instances.Clear();
             game = Process.GetProcessesByName("pol");
+            int numberOfExcludedNames=0;
 
             if (game.Length == 0)
             {
@@ -92,15 +95,21 @@ namespace FFXISwitcher
             }
             foreach (Process instance in game)
             {
-            
-                instances.Add(instance.MainWindowHandle);
+            	if(!listExclusions.Items.Contains(instance.MainWindowTitle)){
+            		instances.Add(instance.MainWindowHandle);}
+            	else{
+            		numberOfExcludedNames++;
+            	}
 
                
             }
             currentItem = 0;
             WriteLine(instances.Count.ToString() + " instances of FFXI found at "+DateTime.Now);
-          
-            this.Text = instances.Count.ToString() + " instances of FFXI found.";
+            if(numberOfExcludedNames!=0){
+            	WriteLine(numberOfExcludedNames.ToString()+" players have been excluded.");
+            }
+         		
+            this.Text = instances.Count.ToString() + " instances of FFXI will be toggled.";
         }
         
         
@@ -136,8 +145,10 @@ namespace FFXISwitcher
             _listener.HookKeyboard();
             WriteLine("Hot Key has been registered");
             createIndex();
+        
 
 		}
+        
         /// <summary>
         /// event attached to when the special hotkey is pressed.
         /// </summary>
@@ -149,7 +160,6 @@ namespace FFXISwitcher
            
 		 	if (e.KeyPressed == Key.OemPipe)
 			{
-
            
                 bringNextToFront(currentItem);
                 currentItem++;
@@ -164,6 +174,8 @@ namespace FFXISwitcher
 		void MainFormLoad(object sender, EventArgs e)
 		{
 			
+			 textAddExclusion.Focus();
+				convertStringToList();			
 		}
 		/// <summary>
 		/// writes to textbox1 to notify the user of any events within the app
@@ -181,6 +193,7 @@ namespace FFXISwitcher
 		/// <param name="e"></param>
 		void MainForm_FormClosing(object sender, EventArgs e){
 		   _listener.UnHookKeyboard();
+		   convertListToStringAndSave();
 		}
 
 		/// <summary>
@@ -192,5 +205,89 @@ namespace FFXISwitcher
         {
             createIndex();
         }
+        
+		/// <summary>
+		/// Adds charecters name to the exclusion listbox
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		void Button1Click(object sender, EventArgs e)
+		{
+			if(string.IsNullOrWhiteSpace(textAddExclusion.Text)){
+			MessageBox.Show("Bad input. No one added");
+				textAddExclusion.Focus();
+			}else{
+				var nameToAdd=CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textAddExclusion.Text);
+				listExclusions.Items.Add(nameToAdd.Trim());
+				textAddExclusion.Clear();
+				textAddExclusion.Focus();
+				convertListToStringAndSave();
+			
+			}
+		}
+		/// <summary>
+		/// Converts array ( listbox ListExclusions ) to a single string connecting items with a comma to be saved to 
+		/// ExcludedPlayers settings string
+		/// </summary>
+		private void convertListToStringAndSave(){
+			if(listExclusions.Items.Count!=0){
+			
+		
+
+				 Properties.Settings.Default.ExcludedPlayers=string.Join(",",listExclusions.Items.Cast<String>().ToArray());
+				 Properties.Settings.Default.Save();
+
+			}else{
+				 Properties.Settings.Default.ExcludedPlayers="";
+				 	 Properties.Settings.Default.Save();
+				
+			}
+	
+		
+		}
+		
+		/// <summary>
+		/// Converts the ExcludedPlayers string that have charecters seperated by commas and adds 
+		/// to the exclusion list box
+		/// </summary>
+		private void convertStringToList(){
+			string tempExclusionList= Properties.Settings.Default.ExcludedPlayers;
+			if(!string.IsNullOrWhiteSpace(tempExclusionList)){
+		
+				var stringsToList=tempExclusionList.Split(',');
+				foreach(var tempString in stringsToList)
+				{
+					listExclusions.Items.Add(tempString);
+				}
+			}
+		}
+		
+		
+	
+		/// <summary>
+		/// Double click to delete person from list. Update properties settings if person is removed.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		void ListExclusionsDoubleClick(object sender, EventArgs e)
+		{
+			
+			if (listExclusions.SelectedItem == null){
+				return;}
+
+    if (listExclusions.SelectedItem.ToString().Length != 0)
+    {            
+        if (MessageBox.Show("Are you sure you want to delete " + 
+                            listExclusions.SelectedItem.ToString() + "?", "Delete" 
+                            + listExclusions.SelectedItem.ToString(), 
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Information) 
+            == DialogResult.Yes
+           ){
+    		listExclusions.Items.Remove(listExclusions.SelectedItem);
+    	 convertListToStringAndSave();
+    	}
+    }
+   
+		}
     }
 }
